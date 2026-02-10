@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaidda-s <kaidda-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kaidda-s <kaidda-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 23:59:40 by kaidda-s          #+#    #+#             */
-/*   Updated: 2026/02/05 18:28:35 by kaidda-s         ###   ########.fr       */
+/*   Updated: 2026/02/09 22:10:28 by kaidda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <pthread.h>
 # include <limits.h>
+# include <sys/time.h>
 
 typedef struct s_data
 {
@@ -45,11 +46,23 @@ typedef struct s_philo
 	int				meals_eaten;
 	
 	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*rigth_fork;
+	pthread_mutex_t	*right_fork;
 
 	t_data			*data;
 }	t_philo;
 
-int	parse_arguments(int argc, char **argv, t_data *data);
+int		parse_arguments(int argc, char **argv, t_data *data);
+void	ft_usleep(long sleep_time);
+long	get_time(void);
+
+int		init_data(t_data *data, t_philo **philos);
+void	cleanup(t_data *data, t_philo *philos);
+
+void	print_status(t_philo *philo, char *message);
+void	take_forks(t_philo *philo);
+void	philo_eat(t_philo *philo);
+void	philo_sleep(t_philo *philo);
+void	philo_think(t_philo *philo);
+
 
 #endif
