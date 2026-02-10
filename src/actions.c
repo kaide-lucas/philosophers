@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaidda-s <kaidda-s@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: kaidda-s <kaidda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 22:18:37 by kaidda-s          #+#    #+#             */
-/*   Updated: 2026/02/09 22:09:42 by kaidda-s         ###   ########.fr       */
+/*   Updated: 2026/02/10 12:35:13 by kaidda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	print_status(t_philo *philo, char *message)
 {
 	long	timestamp;
-	
+
 	pthread_mutex_lock(&philo->data->print_mutex);
 	if (philo->data->someone_died == 1)
 	{
@@ -55,19 +55,16 @@ void	take_forks(t_philo *philo)
 void	philo_eat(t_philo *philo)
 {
 	print_status(philo, "is eating");
-	
 	pthread_mutex_lock(&philo->data->death_mutex);
 	philo->last_meal = get_time();
 	philo->meals_eaten++;
 	pthread_mutex_unlock(&philo->data->death_mutex);
-
 	ft_usleep(philo->data->time_eat);
-
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 }
 
-void philo_think(t_philo *philo)
+void	philo_think(t_philo *philo)
 {
 	print_status(philo, "is thinking");
 }

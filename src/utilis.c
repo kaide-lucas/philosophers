@@ -6,7 +6,7 @@
 /*   By: kaidda-s <kaidda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 22:20:17 by kaidda-s          #+#    #+#             */
-/*   Updated: 2026/02/05 18:40:19 by kaidda-s         ###   ########.fr       */
+/*   Updated: 2026/02/10 13:01:20 by kaidda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,18 @@ int	parse_arguments(int argc, char **argv, t_data *data)
 	if (temp == -1)
 		return (-1);
 	data->nb_philos = (int)temp;
-	if ((data->time_die = validate_and_convert(argv[2])) == -1)
+	temp = validate_and_convert(argv[2]);
+	if (temp == -1)
 		return (-1);
-	if ((data->time_eat = validate_and_convert(argv[3])) == -1)
+	data->nb_philos = (int)temp;
+	temp = validate_and_convert(argv[3]);
+	if (temp == -1)
 		return (-1);
-	if ((data->time_sleep = validate_and_convert(argv[4])) == -1)
+	data->nb_philos = (int)temp;
+	temp = validate_and_convert(argv[4]);
+	if (temp == -1)
 		return (-1);
+	data->nb_philos = (int)temp;
 	if (argc == 6)
 	{
 		temp = validate_and_convert(argv[5]);
@@ -79,6 +85,7 @@ int	parse_arguments(int argc, char **argv, t_data *data)
 		data->nb_meals = (int)temp;
 		return (0);
 	}
-	data->nb_meals = -1;
+	else
+		data->nb_meals = -1;
 	return (0);
 }

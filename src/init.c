@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaidda-s <kaidda-s@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: kaidda-s <kaidda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 22:17:54 by kaidda-s          #+#    #+#             */
-/*   Updated: 2026/02/09 19:04:21 by kaidda-s         ###   ########.fr       */
+/*   Updated: 2026/02/10 14:16:15 by kaidda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	init_forks(t_data *data)
 	int	i;
 	int	j;
 	int	result;
-	
+
 	data->forks = malloc(data->nb_philos * sizeof(pthread_mutex_t));
 	if (data->forks == NULL)
 		return (-1);
@@ -68,9 +68,9 @@ static int	init_forks(t_data *data)
 
 static int	init_philos(t_data *data, t_philo **philos)
 {
-	int	i;
-	t_philo *philo;
-		
+	int		i;
+	t_philo	*philo;
+
 	*philos = malloc(data->nb_philos * sizeof(t_philo));
 	if (*philos == NULL)
 		return (-1);
@@ -92,7 +92,7 @@ static int	init_philos(t_data *data, t_philo **philos)
 void	cleanup(t_data *data, t_philo *philos)
 {
 	int	i;
-	
+
 	if (data->forks != NULL)
 	{
 		i = 0;
