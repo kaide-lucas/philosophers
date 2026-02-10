@@ -3,10 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaidda-s <kaidda-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kaidda-s <kaidda-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 22:18:12 by kaidda-s          #+#    #+#             */
-/*   Updated: 2026/02/03 19:11:36 by kaidda-s         ###   ########.fr       */
+/*   Updated: 2026/02/09 22:50:35 by kaidda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "philosophers.h"
+
+void	*philo_routine(void *arg)
+{
+	
+}
