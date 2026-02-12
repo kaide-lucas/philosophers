@@ -6,7 +6,7 @@
 /*   By: kaidda-s <kaidda-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 23:59:40 by kaidda-s          #+#    #+#             */
-/*   Updated: 2026/02/09 22:10:28 by kaidda-s         ###   ########.fr       */
+/*   Updated: 2026/02/12 01:37:50 by kaidda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,12 @@ void	philo_eat(t_philo *philo);
 void	philo_sleep(t_philo *philo);
 void	philo_think(t_philo *philo);
 
+void	*philo_routine(void *arg);
+
+void	*monitor_routine(void *arg);
+
+int		run_simulation(t_data *data, t_philo **philos);
+
+int 	main(int argc, char **argv);
 
 #endif

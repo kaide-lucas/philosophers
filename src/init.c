@@ -3,39 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaidda-s <kaidda-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kaidda-s <kaidda-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 22:17:54 by kaidda-s          #+#    #+#             */
-/*   Updated: 2026/02/10 14:16:15 by kaidda-s         ###   ########.fr       */
+/*   Updated: 2026/02/12 00:26:45 by kaidda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	init_data(t_data *data, t_philo **philos)
-{
-	data->someone_died = 0;
-	data->start_time = get_time();
-	if (pthread_mutex_init(&data->print_mutex, NULL) != 0)
-		return (-1);
-	if (pthread_mutex_init(&data->death_mutex, NULL) != 0)
-	{
-		pthread_mutex_destroy(&data->print_mutex);
-		return (-1);
-	}
-	if (init_forks(data) == -1)
-	{
-		pthread_mutex_destroy(&data->print_mutex);
-		pthread_mutex_destroy(&data->death_mutex);
-		return (-1);
-	}
-	if (init_philos(data, philos) == -1)
-	{
-		cleanup(data, NULL);
-		return (-1);
-	}
-	return (0);
-}
 
 static int	init_forks(t_data *data)
 {
@@ -111,4 +87,29 @@ void	cleanup(t_data *data, t_philo *philos)
 	pthread_mutex_destroy(&data->death_mutex);
 	if (philos != NULL)
 		free(philos);
+}
+
+int	init_data(t_data *data, t_philo **philos)
+{
+	data->someone_died = 0;
+	data->start_time = get_time();
+	if (pthread_mutex_init(&data->print_mutex, NULL) != 0)
+		return (-1);
+	if (pthread_mutex_init(&data->death_mutex, NULL) != 0)
+	{
+		pthread_mutex_destroy(&data->print_mutex);
+		return (-1);
+	}
+	if (init_forks(data) == -1)
+	{
+		pthread_mutex_destroy(&data->print_mutex);
+		pthread_mutex_destroy(&data->death_mutex);
+		return (-1);
+	}
+	if (init_philos(data, philos) == -1)
+	{
+		cleanup(data, NULL);
+		return (-1);
+	}
+	return (0);
 }

@@ -3,32 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaidda-s <kaidda-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kaidda-s <kaidda-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 22:18:12 by kaidda-s          #+#    #+#             */
-/*   Updated: 2026/02/10 19:10:56 by kaidda-s         ###   ########.fr       */
+/*   Updated: 2026/02/11 19:35:48 by kaidda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+static void	init_philo_routine(t_philo *philo)
+{
+	if (philo->id % 2 == 0)
+			ft_usleep(1);
+	pthread_mutex_lock(&philo->data->death_mutex);
+	philo->last_meal = philo->data->start_time;
+	pthread_mutex_unlock(&philo->data->death_mutex);
+}
+
+static int	check_death(t_philo *philo)
+{
+	int died;
+
+	pthread_mutex_lock(&philo->data->death_mutex);
+	died = philo->data->someone_died;
+	pthread_mutex_unlock(&philo->data->death_mutex);
+
+	return  (died);
+}
+
+static int	check_meals_done(t_philo *philo)
+{
+	int	done;
+
+	if (philo->data->nb_meals == -1)
+		return (0);
+	pthread_mutex_lock(&philo->data->death_mutex);
+	done = (philo->meals_eaten >= philo->data->nb_meals);
+	pthread_mutex_unlock(&philo->data->death_mutex);
+	return (done);
+}
+
 void	*philo_routine(void *arg)
 {
+	t_philo *philo;
 	
-}
-
-void	print_status(t_philo *philo, char *message)
-{
-	long	timestamp;
-
-	pthread_mutex_lock(&philo->data->print_mutex);
-	if (philo->data->someone_died == 1)
+	philo = (t_philo *)arg;
+	init_philo_routine(philo);
+	while (1)
 	{
-		pthread_mutex_unlock(philo->print_mutex);
-		return ;
+		if (check_death(philo))
+			break;
+		take_forks(philo);
+		philo_eat(philo);
+		philo_sleep(philo);
+		philo_think(philo);
+		if (check_meals_done(philo))
+			break ;
 	}
-	timestamp = get_time() - philo->data->start_time;
-	printf("%ld %d %s\n", timestamp, philo->id, message);
-	pthread_mutex_unlock(philo->print_mutex);
+	return (NULL);
 }
-
