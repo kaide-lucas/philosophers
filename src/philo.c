@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaidda-s <kaidda-s@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: kaidda-s <kaidda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 22:58:47 by kaidda-s          #+#    #+#             */
-/*   Updated: 2026/02/12 00:08:50 by kaidda-s         ###   ########.fr       */
+/*   Updated: 2026/02/12 17:57:51 by kaidda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 static int	create_threads(t_data *data, t_philo *philos, pthread_t *monitor)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->nb_philos)
 	{
-		if (pthread_create(&philos[i].thread, NULL, philo_routine, &philos[i]) != 0)
+		if (pthread_create(&philos[i].thread, NULL, philo_routine,
+				&philos[i]) != 0)
 			return (-1);
 		i++;
 	}
@@ -30,7 +31,7 @@ static int	create_threads(t_data *data, t_philo *philos, pthread_t *monitor)
 
 static void	join_threads(t_data *data, t_philo *philos, pthread_t monitor)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->nb_philos)

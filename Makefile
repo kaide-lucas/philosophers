@@ -6,7 +6,7 @@
 #    By: kaidda-s <kaidda-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/01 23:59:56 by kaidda-s          #+#    #+#              #
-#    Updated: 2026/02/03 19:11:36 by kaidda-s         ###   ########.fr        #
+#    Updated: 2026/02/13 13:14:16 by kaidda-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
-	@echo "✅ philo compiled successfully!"
+	@echo "philo compiled successfully!"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
@@ -42,11 +42,11 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 clean:
 	$(RM) $(OBJ_DIR)
-	@echo "🧹 Object files cleaned!"
+	@echo "Object files cleaned!"
 
 fclean: clean
 	$(RM) $(NAME)
-	@echo "🧹 Executable cleaned!"
+	@echo "Executable cleaned!"
 
 re: fclean all
 

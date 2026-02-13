@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaidda-s <kaidda-s@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: kaidda-s <kaidda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 22:18:12 by kaidda-s          #+#    #+#             */
-/*   Updated: 2026/02/11 19:35:48 by kaidda-s         ###   ########.fr       */
+/*   Updated: 2026/02/12 17:18:12 by kaidda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,17 @@
 static void	init_philo_routine(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
-			ft_usleep(1);
-	pthread_mutex_lock(&philo->data->death_mutex);
-	philo->last_meal = philo->data->start_time;
-	pthread_mutex_unlock(&philo->data->death_mutex);
+		ft_usleep(1);
 }
 
 static int	check_death(t_philo *philo)
 {
-	int died;
+	int	died;
 
 	pthread_mutex_lock(&philo->data->death_mutex);
 	died = philo->data->someone_died;
 	pthread_mutex_unlock(&philo->data->death_mutex);
-
-	return  (died);
+	return (died);
 }
 
 static int	check_meals_done(t_philo *philo)
@@ -46,14 +42,20 @@ static int	check_meals_done(t_philo *philo)
 
 void	*philo_routine(void *arg)
 {
-	t_philo *philo;
-	
+	t_philo	*philo;
+
 	philo = (t_philo *)arg;
 	init_philo_routine(philo);
+	if (philo->data->nb_philos == 1)
+	{
+		print_status(philo, "has taken a fork");
+		ft_usleep(philo->data->time_die + 1);
+		return (NULL);
+	}
 	while (1)
 	{
 		if (check_death(philo))
-			break;
+			break ;
 		take_forks(philo);
 		philo_eat(philo);
 		philo_sleep(philo);

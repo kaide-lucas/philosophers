@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaidda-s <kaidda-s@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: kaidda-s <kaidda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 22:15:38 by kaidda-s          #+#    #+#             */
-/*   Updated: 2026/02/12 00:08:20 by kaidda-s         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:35:43 by kaidda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_data		data;
 	t_philo		*philos;
 
+	memset(&data, 0, sizeof(t_data));
 	philos = NULL;
 	if (parse_arguments(argc, argv, &data) == -1)
 	{

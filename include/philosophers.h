@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaidda-s <kaidda-s@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: kaidda-s <kaidda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 23:59:40 by kaidda-s          #+#    #+#             */
-/*   Updated: 2026/02/12 01:37:50 by kaidda-s         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:51:25 by kaidda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
@@ -20,6 +19,7 @@
 # include <pthread.h>
 # include <limits.h>
 # include <sys/time.h>
+# include <string.h>
 
 typedef struct s_data
 {
@@ -28,12 +28,13 @@ typedef struct s_data
 	long			time_eat;
 	long			time_sleep;
 	int				nb_meals;
-	
+
 	long			start_time;
 	int				someone_died;
 
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	death_mutex;
+	pthread_mutex_t	stop_mutex;
 	pthread_mutex_t	*forks;
 
 }	t_data;
@@ -44,7 +45,7 @@ typedef struct s_philo
 	pthread_t		thread;
 	long			last_meal;
 	int				meals_eaten;
-	
+
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 
@@ -70,6 +71,6 @@ void	*monitor_routine(void *arg);
 
 int		run_simulation(t_data *data, t_philo **philos);
 
-int 	main(int argc, char **argv);
+int		main(int argc, char **argv);
 
 #endif

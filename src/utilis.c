@@ -6,7 +6,7 @@
 /*   By: kaidda-s <kaidda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 22:20:17 by kaidda-s          #+#    #+#             */
-/*   Updated: 2026/02/10 13:01:20 by kaidda-s         ###   ########.fr       */
+/*   Updated: 2026/02/12 17:57:51 by kaidda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,10 @@ static long	validate_and_convert(char *arg)
 	return (num);
 }
 
-int	parse_arguments(int argc, char **argv, t_data *data)
+static int	parse_required_args(char **argv, t_data *data)
 {
 	long	temp;
 
-	if (argc != 5 && argc != 6)
-		return (-1);
 	temp = validate_and_convert(argv[1]);
 	if (temp == -1)
 		return (-1);
@@ -68,22 +66,32 @@ int	parse_arguments(int argc, char **argv, t_data *data)
 	temp = validate_and_convert(argv[2]);
 	if (temp == -1)
 		return (-1);
-	data->nb_philos = (int)temp;
+	data->time_die = temp;
 	temp = validate_and_convert(argv[3]);
 	if (temp == -1)
 		return (-1);
-	data->nb_philos = (int)temp;
+	data->time_eat = temp;
 	temp = validate_and_convert(argv[4]);
 	if (temp == -1)
 		return (-1);
-	data->nb_philos = (int)temp;
+	data->time_sleep = temp;
+	return (0);
+}
+
+int	parse_arguments(int argc, char **argv, t_data *data)
+{
+	long	temp;
+
+	if (argc != 5 && argc != 6)
+		return (-1);
+	if (parse_required_args(argv, data) == -1)
+		return (-1);
 	if (argc == 6)
 	{
 		temp = validate_and_convert(argv[5]);
 		if (temp == -1)
 			return (-1);
 		data->nb_meals = (int)temp;
-		return (0);
 	}
 	else
 		data->nb_meals = -1;
